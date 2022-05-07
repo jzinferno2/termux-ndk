@@ -1,0 +1,28 @@
+diff --git a/src/job.c b/src/job.c
+index ae1f18b..8dbd37b 100644
+--- a/src/job.c
++++ b/src/job.c
+@@ -77,7 +77,7 @@ char * vms_strsignal (int status);
+ 
+ #else
+ 
+-const char *default_shell = "/bin/sh";
++const char *default_shell = "/system/bin/sh";
+ int batch_mode_shell = 0;
+ 
+ #endif
+diff --git a/src/output.c b/src/output.c
+index 2211749..201b7ae 100644
+--- a/src/output.c
++++ b/src/output.c
+@@ -150,7 +150,9 @@ log_working_directory (int entering)
+ static void
+ set_append_mode (int fd)
+ {
+-#if defined(F_GETFL) && defined(F_SETFL) && defined(O_APPEND)
++#ifdef __ANDROID__
++  if (isatty(fd)) return;
++#elif defined(F_GETFL) && defined(F_SETFL) && defined(O_APPEND)
+   int flags = fcntl (fd, F_GETFL, 0);
+   if (flags >= 0)
+     {

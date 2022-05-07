@@ -1,0 +1,103 @@
+diff --git a/bfd/archive.c b/bfd/archive.c
+index 7f943762..3510f5be 100644
+--- a/bfd/archive.c
++++ b/bfd/archive.c
+@@ -1922,7 +1922,7 @@ bfd_ar_hdr_from_filesystem (bfd *abfd, const char *filename, bfd *member)
+     {
+       /* Assume we just "made" the member, and fake it.  */
+       struct bfd_in_memory *bim = (struct bfd_in_memory *) member->iostream;
+-      time (&status.st_mtime);
++      time ((time_t*) &status.st_mtime);
+       status.st_uid = getuid ();
+       status.st_gid = getgid ();
+       status.st_mode = 0644;
+diff --git a/gas/app.c b/gas/app.c
+index 38d8e78f..0c4e7a9b 100644
+--- a/gas/app.c
++++ b/gas/app.c
+@@ -216,7 +216,7 @@ static char out_buf[20];
+ static int add_newlines;
+ static char *saved_input;
+ static size_t saved_input_len;
+-static char input_buffer[32 * 1024];
++static char input_buffer[4 * 1024];
+ static const char *mri_state;
+ static char mri_last_ch;
+ 
+diff --git a/gas/input-file.c b/gas/input-file.c
+index 8b9830f0..2bc9e479 100644
+--- a/gas/input-file.c
++++ b/gas/input-file.c
+@@ -37,7 +37,7 @@ int preprocess = 0;
+    The caller only asks once what BUFFER_SIZE is, and asks before
+    the nature of the input files (if any) is known.  */
+ 
+-#define BUFFER_SIZE (32 * 1024)
++#define BUFFER_SIZE (4 * 1024)
+ 
+ /* We use static data: the data area is not sharable.  */
+ 
+diff --git a/gold/Makefile.in b/gold/Makefile.in
+index ec674485..b54a14ba 100644
+--- a/gold/Makefile.in
++++ b/gold/Makefile.in
+@@ -493,7 +493,7 @@ AM_CPPFLAGS = \
+ 
+ LIBIBERTY = ../libiberty/libiberty.a
+ @PLUGINS_TRUE@LIBDL = @DLOPEN_LIBS@
+-@THREADS_TRUE@THREADSLIB = -lpthread
++@THREADS_TRUE@THREADSLIB = # -lpthread
+ AM_YFLAGS = -d
+ 
+ # Automake 1.10+ disables lex and yacc output file regeneration if
+diff --git a/gold/dirsearch.cc b/gold/dirsearch.cc
+index 6178332a..a970bd28 100644
+--- a/gold/dirsearch.cc
++++ b/gold/dirsearch.cc
+@@ -69,7 +69,7 @@ Dir_cache::read_files()
+     {
+       // We ignore directories which do not exist or are actually file
+       // names.
+-      if (errno != ENOENT && errno != ENOTDIR)
++      if (errno != ENOENT && errno != ENOTDIR && errno != EACCES)
+ 	gold::gold_error(_("%s: can not read directory: %s"),
+ 			 this->dirname_, strerror(errno));
+       return;
+diff --git a/gold/ffsll.c b/gold/ffsll.c
+index 9f16eef4..00b1a893 100644
+--- a/gold/ffsll.c
++++ b/gold/ffsll.c
+@@ -29,7 +29,7 @@ extern int ffsll (long long);
+ /* This file implements ffsll for systems which don't have it.  We use
+    ffsll if possible because gcc supports it as a builtin which will
+    use a machine instruction if there is one.  */
+-
++/*
+ int
+ ffsll (long long arg)
+ {
+@@ -46,3 +46,4 @@ ffsll (long long arg)
+     }
+   return ret;
+ }
++*/
+diff --git a/libiberty/getpagesize.c b/libiberty/getpagesize.c
+index 1c3a2630..ac0360df 100644
+--- a/libiberty/getpagesize.c
++++ b/libiberty/getpagesize.c
+@@ -59,13 +59,13 @@ BUGS
+ #  endif /* EXEC_PAGESIZE */
+ # endif /* PAGESIZE */
+ #endif /* GNU_OUR_PAGESIZE */
+-
++/*
+ int
+ getpagesize (void)
+ {
+   return (GNU_OUR_PAGESIZE);
+ }
+-
++*/
+ #else /* VMS */
+ 
+ #if 0	/* older distributions of gcc-vms are missing <syidef.h> */

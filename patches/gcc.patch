@@ -1,0 +1,180 @@
+diff --git a/gcc/system.h b/gcc/system.h
+index 40e3cfa07..46551f3e5 100644
+--- a/gcc/system.h
++++ b/gcc/system.h
+@@ -50,12 +50,12 @@ along with GCC; see the file COPYING3.  If not see
+    the names to 64bit capable functions for LARGE_FILES support. These
+    redefs are pointless here so we can override them.  */
+ 
+-#undef fopen 
+-#undef freopen 
++//#undef fopen
++//#undef freopen
+ 
+-#define fopen(PATH, MODE) fopen_unlocked (PATH, MODE)
+-#define fdopen(FILDES, MODE) fdopen_unlocked (FILDES, MODE)
+-#define freopen(PATH, MODE, STREAM) freopen_unlocked (PATH, MODE, STREAM)
++//#define fopen(PATH, MODE) fopen_unlocked (PATH, MODE)
++//#define fdopen(FILDES, MODE) fdopen_unlocked (FILDES, MODE)
++//#define freopen(PATH, MODE, STREAM) freopen_unlocked (PATH, MODE, STREAM)
+ 
+ /* The compiler is not a multi-threaded application and therefore we
+    do not have to use the locking functions.  In fact, using the locking
+@@ -73,24 +73,24 @@ along with GCC; see the file COPYING3.  If not see
+ #if defined HAVE_DECL_PUTC_UNLOCKED && HAVE_DECL_PUTC_UNLOCKED
+ 
+ # ifdef HAVE_PUTC_UNLOCKED
+-#  undef putc
+-#  define putc(C, Stream) putc_unlocked (C, Stream)
++//#  undef putc
++//#  define putc(C, Stream) putc_unlocked (C, Stream)
+ # endif
+ # ifdef HAVE_PUTCHAR_UNLOCKED
+-#  undef putchar
+-#  define putchar(C) putchar_unlocked (C)
++//#  undef putchar
++//#  define putchar(C) putchar_unlocked (C)
+ # endif
+ # ifdef HAVE_GETC_UNLOCKED
+-#  undef getc
+-#  define getc(Stream) getc_unlocked (Stream)
++//#  undef getc
++//#  define getc(Stream) getc_unlocked (Stream)
+ # endif
+ # ifdef HAVE_GETCHAR_UNLOCKED
+-#  undef getchar
+-#  define getchar() getchar_unlocked ()
++//#  undef getchar
++//#  define getchar() getchar_unlocked ()
+ # endif
+ # ifdef HAVE_FPUTC_UNLOCKED
+-#  undef fputc
+-#  define fputc(C, Stream) fputc_unlocked (C, Stream)
++//#  undef fputc
++//#  define fputc(C, Stream) fputc_unlocked (C, Stream)
+ # endif
+ 
+ #ifdef __cplusplus
+@@ -98,80 +98,80 @@ extern "C" {
+ #endif
+ 
+ # ifdef HAVE_CLEARERR_UNLOCKED
+-#  undef clearerr
+-#  define clearerr(Stream) clearerr_unlocked (Stream)
++//#  undef clearerr
++//#  define clearerr(Stream) clearerr_unlocked (Stream)
+ #  if defined (HAVE_DECL_CLEARERR_UNLOCKED) && !HAVE_DECL_CLEARERR_UNLOCKED
+ extern void clearerr_unlocked (FILE *);
+ #  endif
+ # endif
+ # ifdef HAVE_FEOF_UNLOCKED
+-#  undef feof
+-#  define feof(Stream) feof_unlocked (Stream)
++//#  undef feof
++//#  define feof(Stream) feof_unlocked (Stream)
+ #  if defined (HAVE_DECL_FEOF_UNLOCKED) && !HAVE_DECL_FEOF_UNLOCKED
+ extern int feof_unlocked (FILE *);
+ #  endif
+ # endif
+ # ifdef HAVE_FILENO_UNLOCKED
+-#  undef fileno
+-#  define fileno(Stream) fileno_unlocked (Stream)
++//#  undef fileno
++//#  define fileno(Stream) fileno_unlocked (Stream)
+ #  if defined (HAVE_DECL_FILENO_UNLOCKED) && !HAVE_DECL_FILENO_UNLOCKED
+ extern int fileno_unlocked (FILE *);
+ #  endif
+ # endif
+ # ifdef HAVE_FFLUSH_UNLOCKED
+-#  undef fflush
+-#  define fflush(Stream) fflush_unlocked (Stream)
++//#  undef fflush
++//#  define fflush(Stream) fflush_unlocked (Stream)
+ #  if defined (HAVE_DECL_FFLUSH_UNLOCKED) && !HAVE_DECL_FFLUSH_UNLOCKED
+ extern int fflush_unlocked (FILE *);
+ #  endif
+ # endif
+ # ifdef HAVE_FGETC_UNLOCKED
+-#  undef fgetc
+-#  define fgetc(Stream) fgetc_unlocked (Stream)
++//#  undef fgetc
++//#  define fgetc(Stream) fgetc_unlocked (Stream)
+ #  if defined (HAVE_DECL_FGETC_UNLOCKED) && !HAVE_DECL_FGETC_UNLOCKED
+ extern int fgetc_unlocked (FILE *);
+ #  endif
+ # endif
+ # ifdef HAVE_FGETS_UNLOCKED
+-#  undef fgets
+-#  define fgets(S, n, Stream) fgets_unlocked (S, n, Stream)
++//#  undef fgets
++//#  define fgets(S, n, Stream) fgets_unlocked (S, n, Stream)
+ #  if defined (HAVE_DECL_FGETS_UNLOCKED) && !HAVE_DECL_FGETS_UNLOCKED
+ extern char *fgets_unlocked (char *, int, FILE *);
+ #  endif
+ # endif
+ # ifdef HAVE_FPUTS_UNLOCKED
+-#  undef fputs
+-#  define fputs(String, Stream) fputs_unlocked (String, Stream)
++//#  undef fputs
++//#  define fputs(String, Stream) fputs_unlocked (String, Stream)
+ #  if defined (HAVE_DECL_FPUTS_UNLOCKED) && !HAVE_DECL_FPUTS_UNLOCKED
+ extern int fputs_unlocked (const char *, FILE *);
+ #  endif
+ # endif
+ # ifdef HAVE_FERROR_UNLOCKED
+-#  undef ferror
+-#  define ferror(Stream) ferror_unlocked (Stream)
++//#  undef ferror
++//#  define ferror(Stream) ferror_unlocked (Stream)
+ #  if defined (HAVE_DECL_FERROR_UNLOCKED) && !HAVE_DECL_FERROR_UNLOCKED
+ extern int ferror_unlocked (FILE *);
+ #  endif
+ # endif
+ # ifdef HAVE_FREAD_UNLOCKED
+-#  undef fread
+-#  define fread(Ptr, Size, N, Stream) fread_unlocked (Ptr, Size, N, Stream)
++//#  undef fread
++//#  define fread(Ptr, Size, N, Stream) fread_unlocked (Ptr, Size, N, Stream)
+ #  if defined (HAVE_DECL_FREAD_UNLOCKED) && !HAVE_DECL_FREAD_UNLOCKED
+ extern size_t fread_unlocked (void *, size_t, size_t, FILE *);
+ #  endif
+ # endif
+ # ifdef HAVE_FWRITE_UNLOCKED
+-#  undef fwrite
+-#  define fwrite(Ptr, Size, N, Stream) fwrite_unlocked (Ptr, Size, N, Stream)
++//#  undef fwrite
++//#  define fwrite(Ptr, Size, N, Stream) fwrite_unlocked (Ptr, Size, N, Stream)
+ #  if defined (HAVE_DECL_FWRITE_UNLOCKED) && !HAVE_DECL_FWRITE_UNLOCKED
+ extern size_t fwrite_unlocked (const void *, size_t, size_t, FILE *);
+ #  endif
+ # endif
+ # ifdef HAVE_FPRINTF_UNLOCKED
+-#  undef fprintf
++//#  undef fprintf
+ /* We can't use a function-like macro here because we don't know if
+    we have varargs macros.  */
+-#  define fprintf fprintf_unlocked
++//#  define fprintf fprintf_unlocked
+ #  if defined (HAVE_DECL_FPRINTF_UNLOCKED) && !HAVE_DECL_FPRINTF_UNLOCKED
+ extern int fprintf_unlocked (FILE *, const char *, ...);
+ #  endif
+diff --git a/libiberty/getpagesize.c b/libiberty/getpagesize.c
+index 1c3a26304..ac0360df0 100644
+--- a/libiberty/getpagesize.c
++++ b/libiberty/getpagesize.c
+@@ -59,13 +59,13 @@ BUGS
+ #  endif /* EXEC_PAGESIZE */
+ # endif /* PAGESIZE */
+ #endif /* GNU_OUR_PAGESIZE */
+-
++/*
+ int
+ getpagesize (void)
+ {
+   return (GNU_OUR_PAGESIZE);
+ }
+-
++*/
+ #else /* VMS */
+ 
+ #if 0	/* older distributions of gcc-vms are missing <syidef.h> */
