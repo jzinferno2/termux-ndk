@@ -1,5 +1,6 @@
 # termux-ndk
-Prebuilt Android NDK for host android-aarch64.
+
+telegram channel: https://t.me/jzinferno_updates/94
 
     curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/bin/repo
     chmod 755 /usr/bin/repo
